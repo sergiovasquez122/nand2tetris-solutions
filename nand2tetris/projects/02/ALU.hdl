@@ -60,4 +60,7 @@ CHIP ALU {
     Mux16(a=currentout, b=notcurrentout, sel=no, out=theOut);
 
     And16(a=theOut, b=theOut, out=out);
+    Or16Way(in=theOut, out=ones);
+    Not(in=ones, out=zr);
+    CheckIfNeg(in=theOut, out=ng);
 }
