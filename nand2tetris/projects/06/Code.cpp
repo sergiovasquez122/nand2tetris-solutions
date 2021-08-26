@@ -67,12 +67,12 @@ void Code::initialize_comp() {
 }
 
 void Code::initialize_jump() {
-    dest_code.insert({"null", "000"});
-    dest_code.insert({"JGT", "001"});
-    dest_code.insert({"JEG", "010"});
-    dest_code.insert({"JGE", "011"});
-    dest_code.insert({"JLT", "100"});
-    dest_code.insert({"JNE", "101"});
-    dest_code.insert({"JLE", "110"});
-    dest_code.insert({"JMP", "111"});
+    jump_code.insert({"null", "000"});
+    jump_code.insert({"JGT", "001"});
+    jump_code.insert({"JEQ", "010"});
+    jump_code.insert({"JGE", "011"});
+    jump_code.insert({"JLT", "100"});
+    jump_code.insert({"JNE", "101"});
+    jump_code.insert({"JLE", "110"});
+    jump_code.insert({"JMP", "111"});
 }
