@@ -38,7 +38,7 @@ void Code::initialize_comp() {
     comp_code.insert({"0", "0101010"});
     comp_code.insert({"1", "0111111"});
     comp_code.insert({"-1", "0111010"});
-    comp_code.insert({"D", "00011100"});
+    comp_code.insert({"D", "0001100"});
     comp_code.insert({"A", "0110001"});
     comp_code.insert({"!D", "0001101"});
     comp_code.insert({"!A", "0110001"});
