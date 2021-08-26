@@ -13,7 +13,26 @@ std::string Parser::jump() const {
 }
 
 std::string Parser::comp() const {
-    return std::__cxx11::string();
+    size_t jump_idx = current_instruction.find(';');
+    size_t dest_idx = current_instruction.find('=');
+
+    bool jump_exists = (jump_idx != std::string::npos);
+    bool dest_exists = (dest_idx != std::string::npos);
+
+    // if both tokens ';' and '=' don't exist it is only a comp instruction
+    if(!dest_exists && !jump_exists){
+        return current_instruction;
+    }
+    // instruction is of the form 'dest=comp'
+    if(dest_exists && !jump_exists){
+        return current_instruction.substr(dest_idx + 1);
+    }
+    // instruction is of the form 'comp;jump'
+    if(jump_exists){
+        return current_instruction.substr(0, jump_idx);
+    }
+    // only comp
+    return current_instruction;
 }
 
 std::string Parser::dest() const {
