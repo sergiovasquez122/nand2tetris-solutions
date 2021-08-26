@@ -4,9 +4,9 @@
 #include <string>
 class Code {
 public:
-    std::string dest(const std::string& d);
-    std::string comp(const std::string& c);
-    std::string jump(const std::string& j);
+    std::string dest(const std::string& d) const;
+    std::string comp(const std::string& c) const;
+    std::string jump(const std::string& j) const;
     Code();
 private:
     void initialize_dest();

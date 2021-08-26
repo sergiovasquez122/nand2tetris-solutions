@@ -4,15 +4,15 @@
 
 #include "Code.h"
 
-std::string Code::jump(const std::string &j) {
+std::string Code::jump(const std::string &j) const {
     return jump_code.at(j);
 }
 
-std::string Code::comp(const std::string &c) {
+std::string Code::comp(const std::string &c) const {
     return comp_code.at(c);
 }
 
-std::string Code::dest(const std::string &d) {
+std::string Code::dest(const std::string &d) const {
     return dest_code.at(d);
 }
 
