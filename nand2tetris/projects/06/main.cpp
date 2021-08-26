@@ -10,6 +10,11 @@ void initialize_symbol_table(std::unordered_map<std::string, int>& symbol_table)
     }
     symbol_table.insert({"SCREEN", 16384});
     symbol_table.insert({"KBD", 24576});
+    symbol_table.insert({"SP", 0});
+    symbol_table.insert({"LCL", 1});
+    symbol_table.insert({"ARG", 2});
+    symbol_table.insert({"THIS", 3});
+    symbol_table.insert({"THAT", 4});
 }
 
 bool isNumber(const std::string& str)
