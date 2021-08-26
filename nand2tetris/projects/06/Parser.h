@@ -5,7 +5,8 @@
 #ifndef INC_06_PARSER_H
 #define INC_06_PARSER_H
 #include <string>
-#include <filesystem>
+#include <fstream>
+enum class instructionType {A_INSTRUCTION, C_INSTRUCTION, L_INSTRUCTION};
 
 class Parser {
 public:
@@ -16,10 +17,10 @@ public:
     std::string dest() const;
     std::string comp() const;
     std::string jump() const;
-    enum class instruction_type {A_INSTRUCTION, C_INSTRUCTION, L_INSTRUCTION};
 private:
-    instruction_type current_instruction_type;
+    instructionType current_instruction_type;
     std::string current_instruction;
+    std::fstream file_stream;
 };
 
 
