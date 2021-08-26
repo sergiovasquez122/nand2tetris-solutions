@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
             continue;
         } else if(parser.currentInstructionType() == instructionType::L_INSTRUCTION){
             std::string loop_symbol{parser.symbol()};
-            symbol_table.insert({loop_symbol, line_number + 1});
+            symbol_table.insert({loop_symbol, line_number});
         } // the instruction is a pseudo-instruction. ignore for now
     }
     // second pass
