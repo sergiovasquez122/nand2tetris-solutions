@@ -1,12 +1,7 @@
 #include <iostream>
-#include <fstream>
+#include <bitset>
 #include "Parser.h"
 #include "Code.h"
-
-bool getLine(std::string& line){
-    std::getline(std::cin, line);
-    return !line.empty();
-}
 
 void initialize_symbol_table(std::unordered_map<std::string, int>& symbol_table){
     for(int i = 0;i <= 15;i++){
@@ -51,6 +46,14 @@ int main(int argc, char* argv[]) {
             // the full code
             full_code.append(comp_code).append(dest_code).append(jump_code);
             // to-do: append content to a file
+        } else if(parser.currentInstructionType() == instructionType::A_INSTRUCTION){
+            std::string symbol{parser.symbol()};
+            // we have a new symbol, that references a variable
+            if(!symbol_table.count(symbol)){
+                symbol_table.insert({symbol, n++}); // we have a new symbol, that references a variable
+            }
+            int value{symbol_table.at(symbol)};
+            std::string sixteen_bit_representation = std::bitset<16>(value).to_string();
         }
     }
 }
