@@ -33,5 +33,11 @@ void Parser::advance() {
 }
 
 std::string Parser::symbol() const {
-    return std::__cxx11::string();
+    if(current_instruction_type == instructionType::A_INSTRUCTION){
+        return current_instruction.substr(1); // everything after @
+    }
+    // instruction must then be an L_instruction (xxx)
+    std::string l_instruction = current_instruction.substr(1);
+    l_instruction.pop_back(); // remove the ) character
+    return l_instruction;
 }
