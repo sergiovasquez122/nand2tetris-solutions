@@ -12,6 +12,12 @@ void initialize_symbol_table(std::unordered_map<std::string, int>& symbol_table)
     symbol_table.insert({"KBD", 24576});
 }
 
+std::string generate_machine_language_path(const std::string& path){
+    size_t pos_idx = path.find_last_of('.');
+    std::string machine_language = path.substr(0, pos_idx) + ".hack";
+    return machine_language;
+}
+
 int main(int argc, char* argv[]) {
     if(argc != 2){
         std::cerr << "usage: ./out file.asm" << std::endl;
@@ -36,6 +42,8 @@ int main(int argc, char* argv[]) {
     int n = 16;
     parser = Parser{argv[1]};
     Code code;
+    std::string file_name_to_write_to = generate_machine_language_path(argv[1]);
+    std::fstream file{file_name_to_write_to};
     while(parser.hasMoreLines()){
         parser.advance();
         if(parser.currentInstructionType() == instructionType::C_INSTRUCTION){
@@ -45,7 +53,7 @@ int main(int argc, char* argv[]) {
             std::string full_code{"111"};
             // the full code
             full_code.append(comp_code).append(dest_code).append(jump_code);
-            // to-do: append content to a file
+            file << full_code << std::endl;
         } else if(parser.currentInstructionType() == instructionType::A_INSTRUCTION){
             std::string symbol{parser.symbol()};
             // we have a new symbol, that references a variable
@@ -54,6 +62,7 @@ int main(int argc, char* argv[]) {
             }
             int value{symbol_table.at(symbol)};
             std::string sixteen_bit_representation = std::bitset<16>(value).to_string();
+            file << sixteen_bit_representation << std::endl;
         }
     }
 }
