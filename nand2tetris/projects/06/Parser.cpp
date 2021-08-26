@@ -63,7 +63,7 @@ void Parser::advance() {
             continue;
         }
         current_instruction = token;
-    } while (current_instruction.empty());
+    } while (hasMoreLines() && current_instruction.empty());
 }
 
 std::string Parser::symbol() const {
