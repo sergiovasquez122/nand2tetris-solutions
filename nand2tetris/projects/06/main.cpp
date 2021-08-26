@@ -12,6 +12,11 @@ void initialize_symbol_table(std::unordered_map<std::string, int>& symbol_table)
     symbol_table.insert({"KBD", 24576});
 }
 
+bool isNumber(const std::string& str)
+{
+    return str.find_first_not_of("0123456789") == std::string::npos;
+}
+
 std::string generate_machine_language_path(const std::string& path){
     size_t pos_idx = path.find_last_of('.');
     std::string machine_language = path.substr(0, pos_idx) + ".hack";
@@ -43,7 +48,8 @@ int main(int argc, char* argv[]) {
     parser = Parser{argv[1]};
     Code code;
     std::string file_name_to_write_to = generate_machine_language_path(argv[1]);
-    std::fstream file{file_name_to_write_to};
+    std::fstream file;
+    file.open(file_name_to_write_to, std::fstream::out);
     while(parser.hasMoreLines()){
         parser.advance();
         if(parser.currentInstructionType() == instructionType::C_INSTRUCTION){
@@ -56,6 +62,9 @@ int main(int argc, char* argv[]) {
             file << full_code << std::endl;
         } else if(parser.currentInstructionType() == instructionType::A_INSTRUCTION){
             std::string symbol{parser.symbol()};
+            if(isNumber(symbol)){
+                symbol_table.insert({symbol, std::stoi(symbol)});
+            }
             // we have a new symbol, that references a variable
             if(!symbol_table.count(symbol)){
                 symbol_table.insert({symbol, n++}); // we have a new symbol, that references a variable
@@ -65,4 +74,5 @@ int main(int argc, char* argv[]) {
             file << sixteen_bit_representation << std::endl;
         }
     }
+    file.close();
 }
