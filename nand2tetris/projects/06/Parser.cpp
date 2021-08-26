@@ -52,7 +52,18 @@ bool Parser::hasMoreLines() const {
 }
 
 void Parser::advance() {
-
+    current_instruction.clear();
+    do {
+        std::string line;
+        std::string token;
+        std::getline(file_stream, line);
+        std::stringstream ss(line);
+        ss >> token;
+        if(token.empty() || token.at(0) == '/'){
+            continue;
+        }
+        current_instruction = token;
+    } while (current_instruction.empty());
 }
 
 std::string Parser::symbol() const {
@@ -63,4 +74,14 @@ std::string Parser::symbol() const {
     std::string l_instruction = current_instruction.substr(1);
     l_instruction.pop_back(); // remove the ) character
     return l_instruction;
+}
+
+void Parser::decideInstructionType() {
+    if(current_instruction.at(0) == '@'){
+        current_instruction_type = instructionType::A_INSTRUCTION;
+    } else if(current_instruction.at(0) == '('){
+        current_instruction_type = instructionType::L_INSTRUCTION;
+    } else {
+        current_instruction_type = instructionType::C_INSTRUCTION;
+    }
 }
