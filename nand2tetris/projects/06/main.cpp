@@ -44,10 +44,13 @@ int main(int argc, char* argv[]) {
     while(parser.hasMoreLines()){
         parser.advance();
         if(parser.currentInstructionType() == instructionType::C_INSTRUCTION){
-            std::cout << parser.currentInstruction() << std::endl;
-            std::cout << "comp: " << parser.comp() << std::endl;
-            std::cout << "dest: " << parser.dest() << std::endl;
-            std::cout << "jump: " << parser.jump() << std::endl;
+            std::string comp_code = code.comp(parser.comp());
+            std::string dest_code = code.dest(parser.dest());
+            std::string jump_code = code.jump(parser.jump());
+            std::string full_code{"111"};
+            // the full code
+            full_code.append(comp_code).append(dest_code).append(jump_code);
+            // to-do: append content to a file
         }
     }
 }

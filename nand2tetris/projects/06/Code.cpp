@@ -26,7 +26,7 @@ void Code::initialize_dest() {
     dest_code.insert({"null", "000"});
     dest_code.insert({"M", "001"});
     dest_code.insert({"D", "010"});
-    dest_code.insert({"DM", "011"});
+    dest_code.insert({"MD", "011"});
     dest_code.insert({"A", "100"});
     dest_code.insert({"AM", "101"});
     dest_code.insert({"AD", "110"});
