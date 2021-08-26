@@ -78,11 +78,21 @@ std::string Parser::symbol() const {
 }
 
 void Parser::decideInstructionType() {
-    if(current_instruction.at(0) == '@'){
+    if(currentInstruction().empty()){
+        current_instruction_type = instructionType::P_INSTRUCTION;
+    } else if(current_instruction.at(0) == '@'){
         current_instruction_type = instructionType::A_INSTRUCTION;
     } else if(current_instruction.at(0) == '('){
         current_instruction_type = instructionType::L_INSTRUCTION;
     } else {
         current_instruction_type = instructionType::C_INSTRUCTION;
     }
+}
+
+instructionType Parser::currentInstructionType() const {
+    return current_instruction_type;
+}
+
+std::string Parser::currentInstruction() const {
+    return current_instruction;
 }

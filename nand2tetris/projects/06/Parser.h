@@ -7,7 +7,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-enum class instructionType {A_INSTRUCTION, C_INSTRUCTION, L_INSTRUCTION};
+enum class instructionType {A_INSTRUCTION, C_INSTRUCTION, L_INSTRUCTION, P_INSTRUCTION};
 
 class Parser {
 public:
@@ -18,6 +18,8 @@ public:
     std::string dest() const;
     std::string comp() const;
     std::string jump() const;
+    instructionType currentInstructionType() const;
+    std::string currentInstruction() const;
 private:
     void decideInstructionType();
     instructionType current_instruction_type;
