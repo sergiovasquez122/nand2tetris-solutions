@@ -7,6 +7,8 @@
 
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <unordered_map>
 
 enum class INSTRUCTION_TYPE {C_ARITHMETIC, C_PUSH, C_POP, C_LABEL,
         C_GOTO, C_IF, C_FUNCTION, C_RETURN, C_CALL, C_PSEUDO};
@@ -21,6 +23,7 @@ public:
     INSTRUCTION_TYPE currentInstructionType() const;
     std::string currentInstruction() const;
 private:
+    void decideInstructionType();
     INSTRUCTION_TYPE current_instruction_type;
     std::string current_instruction;
     std::fstream file_stream;
