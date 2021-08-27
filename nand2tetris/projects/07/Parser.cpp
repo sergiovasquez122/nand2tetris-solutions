@@ -73,7 +73,7 @@ std::string Parser::arg1() const {
     }
     size_t first_space_idx = current_instruction.find_first_of(' ');
     size_t last_space_idx = current_instruction.find_last_of(' ');
-    return current_instruction.substr(first_space_idx + 1, last_space_idx - first_space_idx);
+    return current_instruction.substr(first_space_idx + 1, last_space_idx - first_space_idx - 1);
 }
 
 
