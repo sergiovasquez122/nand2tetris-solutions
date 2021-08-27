@@ -93,6 +93,7 @@ void Parser::decideInstructionType() {
 
 Parser::Parser(const std::string &filename) : file_stream(filename), current_instruction_type(INSTRUCTION_TYPE::C_PSEUDO)
 {
+    load_table();
 }
 
 void Parser::load_table() {
