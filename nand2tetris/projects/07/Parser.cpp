@@ -26,7 +26,9 @@ INSTRUCTION_TYPE Parser::currentInstructionType() const {
  * is C_PUSH, C_POP, C_FUNCTION, or C_CALL
  */
 int Parser::arg2() const {
-    return 0;
+    size_t idx = current_instruction.find_last_of(' ');
+    std::string string_representation{current_instruction.substr(idx + 1)};
+    return std::stoi(string_representation);
 }
 
 /**
@@ -65,11 +67,18 @@ void Parser::advance() {
  * C_RETURN
  */
 std::string Parser::arg1() const {
-    return std::__cxx11::string();
+    // we can return the entire line directly
+    if(current_instruction_type == INSTRUCTION_TYPE::C_ARITHMETIC){
+        return current_instruction;
+    }
+    size_t first_space_idx = current_instruction.find_first_of(' ');
+    size_t last_space_idx = current_instruction.find_last_of(' ');
+    return current_instruction.substr(first_space_idx + 1, last_space_idx - first_space_idx);
 }
 
 void Parser::decideInstructionType() {
         if(currentInstruction().empty()){
             current_instruction_type = INSTRUCTION_TYPE::C_PSEUDO;
         }
+
 }
