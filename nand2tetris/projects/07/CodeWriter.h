@@ -6,6 +6,7 @@
 #define INC_07_CODEWRITER_H
 
 #include <string>
+#include <fstream>
 
 class CodeWriter {
 public:
@@ -14,7 +15,10 @@ public:
     void writePush(const std::string& segment, int index);
     void writePop(const std::string& segment, int index);
     void close();
+private:
+    std::string base_file_name;
+    std::fstream file_stream;
 };
 
-
+std::string get_base_path(const std::string& path);
 #endif //INC_07_CODEWRITER_H
