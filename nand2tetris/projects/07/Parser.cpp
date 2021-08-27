@@ -4,6 +4,9 @@
 
 #include "Parser.h"
 
+/**
+ * Are there more lines in the input?
+ */
 bool Parser::hasMoreLines() const {
     return !file_stream.eof();
 }
@@ -16,10 +19,25 @@ INSTRUCTION_TYPE Parser::currentInstructionType() const {
     return current_instruction_type;
 }
 
+/**
+ * Returns the second argument of the current command.
+ *
+ * Should be called only if the current command
+ * is C_PUSH, C_POP, C_FUNCTION, or C_CALL
+ */
 int Parser::arg2() const {
     return 0;
 }
 
+/**
+ * Reads the next command from the input
+ * and makes it the current command.
+ *
+ * This routine should be called only if
+ * hasMoreLines is true.
+ *
+ * Initially there is no more commands.
+ */
 void Parser::advance() {
     current_instruction.clear();
     do {
@@ -37,6 +55,15 @@ void Parser::advance() {
     decideInstructionType();
 }
 
+/**
+ * Returns the first argument of the current command.
+ *
+ * In the case of C_ARITHMETIC, the command itself
+ * {add, sub, etc.} is returned
+ *
+ * Should not be called if the current command is
+ * C_RETURN
+ */
 std::string Parser::arg1() const {
     return std::__cxx11::string();
 }
