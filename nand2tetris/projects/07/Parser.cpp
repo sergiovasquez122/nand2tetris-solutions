@@ -76,13 +76,37 @@ std::string Parser::arg1() const {
     return current_instruction.substr(first_space_idx + 1, last_space_idx - first_space_idx);
 }
 
+
+
 void Parser::decideInstructionType() {
         if(currentInstruction().empty()){
             current_instruction_type = INSTRUCTION_TYPE::C_PSEUDO;
+        } else{
+            std::string instruction = current_instruction;
+            size_t idx = current_instruction.find_first_of(' ');
+            if(idx != std::string::npos){
+                instruction = current_instruction.substr(0, idx);
+            }
+            current_instruction_type = symbol_table.at(instruction);
         }
-
 }
 
 Parser::Parser(const std::string &filename) : file_stream(filename), current_instruction_type(INSTRUCTION_TYPE::C_PSEUDO)
 {
+}
+
+void Parser::load_table() {
+    symbol_table.insert({"push", INSTRUCTION_TYPE::C_PUSH});
+    symbol_table.insert({"pop", INSTRUCTION_TYPE::C_POP});
+    // arithmetic and logical operations
+    symbol_table.insert({"add", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"sub", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"neg", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"eq", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"gt", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"lt", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"and", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"or", INSTRUCTION_TYPE::C_ARITHMETIC});
+    symbol_table.insert({"not", INSTRUCTION_TYPE::C_ARITHMETIC});
+    // more instructions will be added for project 8
 }

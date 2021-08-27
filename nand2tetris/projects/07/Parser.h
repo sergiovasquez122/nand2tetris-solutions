@@ -24,9 +24,11 @@ public:
     std::string currentInstruction() const;
 private:
     void decideInstructionType();
+    void load_table();
     INSTRUCTION_TYPE current_instruction_type;
     std::string current_instruction;
     std::fstream file_stream;
+    std::unordered_map<std::string, INSTRUCTION_TYPE> symbol_table;
 };
 
 
