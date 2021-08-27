@@ -31,5 +31,6 @@ private:
     std::unordered_map<std::string, INSTRUCTION_TYPE> symbol_table;
 };
 
+std::ostream& operator<< (std::ostream& out, const INSTRUCTION_TYPE& instructionType);
 
 #endif //INC_07_PARSER_H

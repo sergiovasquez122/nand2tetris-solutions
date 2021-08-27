@@ -111,3 +111,29 @@ void Parser::load_table() {
     symbol_table.insert({"not", INSTRUCTION_TYPE::C_ARITHMETIC});
     // more instructions will be added for project 8
 }
+
+std::ostream &operator<<(std::ostream &out, const INSTRUCTION_TYPE &instructionType) {
+        switch(instructionType)
+        {
+            case INSTRUCTION_TYPE::C_ARITHMETIC: out << "C_ARITHMETIC"; break;
+            case INSTRUCTION_TYPE::C_PUSH: out << "C_PUSH"; break;
+            case INSTRUCTION_TYPE::C_POP: out << "C_POP"; break;
+                // instructions will be implemented for project 8.
+            case INSTRUCTION_TYPE::C_LABEL:
+                break;
+            case INSTRUCTION_TYPE::C_GOTO:
+                break;
+            case INSTRUCTION_TYPE::C_IF:
+                break;
+            case INSTRUCTION_TYPE::C_FUNCTION:
+                break;
+            case INSTRUCTION_TYPE::C_RETURN:
+                break;
+            case INSTRUCTION_TYPE::C_CALL:
+                break;
+            case INSTRUCTION_TYPE::C_PSEUDO:
+                out << "C_PSEUDO";
+                break;
+        }
+        return out;
+}
