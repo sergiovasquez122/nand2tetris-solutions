@@ -99,7 +99,6 @@ void CodeWriter::writeArithmetic(const std::string& command) {
             file_stream << "D=D|M" << std::endl;
         } else if(command == "eq"){
             file_stream << "D=D-M" << std::endl;
-            file_stream << "!D" << std::endl;
         } else if(command == "lt"){
             file_stream << "D=D-M" << std::endl;
         } else if(command == "gt"){
