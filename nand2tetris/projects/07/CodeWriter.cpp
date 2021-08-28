@@ -47,7 +47,7 @@ void CodeWriter::addToStack() {
     file_stream << "M=D" << std::endl;
 }
 
-void CodeWriter::retrieveFromStack() {\
+void CodeWriter::retrieveFromStack() {
     file_stream << "@SP" << std::endl;
     file_stream << "A=M" << std::endl;
     file_stream << "D=M" << std::endl;
