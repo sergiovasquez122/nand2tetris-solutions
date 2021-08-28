@@ -127,7 +127,10 @@ void CodeWriter::writePush(const std::string &segment, int index) {
     } else if(segment == "local" || segment == "argument" || segment == "this" || segment == "that"){
         writePush(segment, index);
     } else if(segment == "static"){
-
+        file_stream << "@" << base_file_name << "." << index << std::endl;
+        file_stream << "D=M" << std::endl;
+        addToStack();
+        incrementStackPointer();
     } else {
         throw std::runtime_error("unexpected arguments");
     }
