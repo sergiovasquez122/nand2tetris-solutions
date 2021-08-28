@@ -138,7 +138,26 @@ void CodeWriter::writePush(const std::string &segment, int index) {
 }
 
 void CodeWriter::writePop(const std::string &segment, int index) {
-
+    if(segment == "temp"){
+        decrementStackPointer();
+        retrieveFromStack();
+        int read_idx = 5 + index;
+        file_stream << "@" << read_idx << std::endl;
+        file_stream << "M=D" << std::endl;
+    } else if (segment == "pointer"){
+        std::string segment_translated = (index == 0) ? "this" : "that";
+        writePop(segment_translated, 0);
+    } else if(segment == "local" || segment == "argument" || segment == "this" || segment == "that"){
+        std::string segment_translated = symbol_table.at(segment);
+        popSegment(segment_translated, index);
+    } else if(segment == "static"){
+        decrementStackPointer();
+        retrieveFromStack();
+        file_stream << "@" << base_file_name << "." << index << std::endl;
+        file_stream << "M=D" << std::endl;
+    } else {
+        throw std::runtime_error("unexpected arguments");
+    }
 }
 
 void CodeWriter::pushConstant(int index) {
