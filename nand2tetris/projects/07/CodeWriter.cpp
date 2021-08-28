@@ -74,6 +74,13 @@ void CodeWriter::writePop(const std::string &segment, int index) {
 
 }
 
+void CodeWriter::pushConstant(int index) {
+    file_stream << "@" << index << std::endl;
+    file_stream << "D=A" << std::endl;
+    addToStack();
+    incrementStackPointer();
+}
+
 void CodeWriter::close() {
     file_stream.close();
 }

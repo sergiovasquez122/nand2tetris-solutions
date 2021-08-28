@@ -20,6 +20,7 @@ private:
     void addToStack();
     void retrieveFromStack();
     void decrementStackPointer();
+    void pushConstant(int index);
     void pushSegment(const std::string& segment, int index);
     void popSegment(const std::string& segment, int index);
     std::string base_file_name;
