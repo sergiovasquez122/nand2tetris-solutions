@@ -17,7 +17,14 @@ void CodeWriter::incrementStackPointer() {
 }
 
 void CodeWriter::pushSegment(const std::string &segment, int index) {
-
+    file_stream << "@" + segment << std::endl;
+    file_stream << "A=M" << std::endl;
+    for(int i = 0;i < index;i++){
+        file_stream << "A=A+1" << std::endl;
+    }
+    file_stream << "D=M" << std::endl;
+    addToStack();
+    incrementStackPointer();
 }
 
 /**
@@ -31,10 +38,13 @@ void CodeWriter::popSegment(const std::string &segment, int index) {
     for(int i = 0;i < index;i++){
         file_stream << "A=A+1" << std::endl;
     }
+    file_stream << "M=D" << std::endl;
 }
 
 void CodeWriter::addToStack() {
-
+    file_stream << "@SP" << std::endl;
+    file_stream << "A=M" << std::endl;
+    file_stream << "M=D" << std::endl;
 }
 
 void CodeWriter::retrieveFromStack() {\
