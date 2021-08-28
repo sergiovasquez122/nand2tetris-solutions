@@ -41,12 +41,20 @@ void CodeWriter::popSegment(const std::string &segment, int index) {
     file_stream << "M=D" << std::endl;
 }
 
+/**
+ * writes the memory location the
+ * stackpointer points to.
+ */
 void CodeWriter::addToStack() {
     file_stream << "@SP" << std::endl;
     file_stream << "A=M" << std::endl;
     file_stream << "M=D" << std::endl;
 }
 
+/**
+ * Get the element the stackpointer points to
+ * and stores it into the destination register.
+ */
 void CodeWriter::retrieveFromStack() {
     file_stream << "@SP" << std::endl;
     file_stream << "A=M" << std::endl;
@@ -63,7 +71,45 @@ void CodeWriter::decrementStackPointer() {
 }
 
 void CodeWriter::writeArithmetic(const std::string& command) {
-
+    // regardless of command, we retrieve the topmost element from the stack
+    decrementStackPointer();
+    retrieveFromStack();
+    // commands are unary operator any other would be binary
+    if(command == "not" || command == "neg"){
+        std::string value = (command == "not" ? "!D" : "-D");
+        file_stream << value << std::endl;
+    } else {
+        // store the topmost stack information in temporary register, R13 is guaranteed to be allowed to be used.
+        file_stream << "@R13" << std::endl;
+        file_stream << "M=D" << std::endl;
+        // get the second element from the stack
+        decrementStackPointer();
+        retrieveFromStack();
+        // setup R13 to be ready to be used.
+        file_stream << "@R13" << std::endl;
+        // determine operation based on command.
+        if(command == "add"){
+            file_stream << "D=D+M" << std::endl;
+        } else if(command == "sub"){
+            file_stream << "D=D-M" << std::endl;
+        } else if(command == "and"){
+            file_stream << "D=D&M" << std::endl;
+        } else if(command == "or"){
+            file_stream << "D=D|M" << std::endl;
+        } else if(command == "eq"){
+            file_stream << "D=D-M" << std::endl;
+            file_stream << "!D" << std::endl;
+        } else if(command == "lt"){
+            file_stream << "D=D-M" << std::endl;
+        } else if(command == "gt"){
+            file_stream << "D=M-D" << std::endl;
+        } else {
+            throw std::runtime_error("invalid argument");
+        }
+    }
+    // add the computed value to stack and restore balance
+    addToStack();
+    incrementStackPointer();
 }
 
 void CodeWriter::writePush(const std::string &segment, int index) {

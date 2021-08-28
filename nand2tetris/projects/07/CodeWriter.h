@@ -7,6 +7,7 @@
 
 #include <string>
 #include <fstream>
+#include <unordered_map>
 
 class CodeWriter {
 public:
