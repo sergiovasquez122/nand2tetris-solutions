@@ -102,7 +102,7 @@ void CodeWriter::writeArithmetic(const std::string& command) {
         } else if(command == "lt"){
             file_stream << "D=D-M" << std::endl;
         } else if(command == "gt"){
-            file_stream << "D=M-D" << std::endl;
+            file_stream << "D=D-M" << std::endl;
         } else {
             throw std::runtime_error("invalid argument");
         }
