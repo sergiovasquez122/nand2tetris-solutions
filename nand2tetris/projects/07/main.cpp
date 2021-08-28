@@ -26,4 +26,5 @@ int main(int argc, char* argv[]) {
             writer.writeArithmetic(first_arg);
         }
     }
+    writer.close();
 }

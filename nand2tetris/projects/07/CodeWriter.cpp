@@ -71,6 +71,7 @@ void CodeWriter::decrementStackPointer() {
 }
 
 void CodeWriter::writeArithmetic(const std::string& command) {
+    file_stream << "// " << command << std::endl;
     // regardless of command, we retrieve the topmost element from the stack
     decrementStackPointer();
     retrieveFromStack();
@@ -113,6 +114,7 @@ void CodeWriter::writeArithmetic(const std::string& command) {
 }
 
 void CodeWriter::writePush(const std::string &segment, int index) {
+    file_stream << "// " << segment << " " << index << std::endl;
     if(segment == "constant"){
         pushConstant(index);
     } else if(segment == "temp"){
@@ -138,6 +140,7 @@ void CodeWriter::writePush(const std::string &segment, int index) {
 }
 
 void CodeWriter::writePop(const std::string &segment, int index) {
+    file_stream << "// " << segment << " " << index << std::endl;
     if(segment == "temp"){
         decrementStackPointer();
         retrieveFromStack();
