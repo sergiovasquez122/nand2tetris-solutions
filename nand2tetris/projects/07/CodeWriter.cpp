@@ -113,7 +113,24 @@ void CodeWriter::writeArithmetic(const std::string& command) {
 }
 
 void CodeWriter::writePush(const std::string &segment, int index) {
+    if(segment == "constant"){
+        pushConstant(index);
+    } else if(segment == "temp"){
+        int read_idx = 5 + index;
+        file_stream << "@" << read_idx << std::endl;
+        file_stream << "D=M" << std::endl;
+        addToStack();
+        incrementStackPointer();
+    } else if (segment == "pointer"){
+        std::string segment_translated = (index == 0) ? "this" : "that";
+        writePush(segment_translated, 0);
+    } else if(segment == "local" || segment == "argument" || segment == "this" || segment == "that"){
+        writePush(segment, index);
+    } else if(segment == "static"){
 
+    } else {
+        throw std::runtime_error("unexpected arguments");
+    }
 }
 
 void CodeWriter::writePop(const std::string &segment, int index) {
