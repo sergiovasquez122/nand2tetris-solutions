@@ -125,7 +125,8 @@ void CodeWriter::writePush(const std::string &segment, int index) {
         std::string segment_translated = (index == 0) ? "this" : "that";
         writePush(segment_translated, 0);
     } else if(segment == "local" || segment == "argument" || segment == "this" || segment == "that"){
-        writePush(segment, index);
+        std::string segment_translated = symbol_table.at(segment);
+        pushSegment(segment_translated, index);
     } else if(segment == "static"){
         file_stream << "@" << base_file_name << "." << index << std::endl;
         file_stream << "D=M" << std::endl;

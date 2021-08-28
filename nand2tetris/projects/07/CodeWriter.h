@@ -26,6 +26,10 @@ private:
     void popSegment(const std::string& segment, int index);
     std::string base_file_name;
     std::fstream file_stream;
+    std::unordered_map<std::string, std::string> symbol_table = {{"this", "THIS"},
+                                                                 {"that", "THAT"},
+                                                                 {"local", "LCL"},
+                                                                 {"argument", "ARG"}};
 };
 
 std::string get_base_path(const std::string& path);
