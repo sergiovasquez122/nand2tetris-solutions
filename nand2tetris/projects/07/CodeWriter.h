@@ -16,6 +16,8 @@ public:
     void writePop(const std::string& segment, int index);
     void close();
 private:
+    void incrementStackPointer();
+    void decrementStackPointer();
     std::string base_file_name;
     std::fstream file_stream;
 };

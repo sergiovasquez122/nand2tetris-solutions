@@ -8,6 +8,23 @@ CodeWriter::CodeWriter(const std::string &filename): base_file_name(get_base_pat
     file_stream.open(base_file_name + ".asm", std::fstream::out);
 }
 
+/**
+ * sp++
+ */
+void CodeWriter::incrementStackPointer() {
+    file_stream << "@SP" << std::endl;
+    file_stream << "M=M+1" << std::endl;
+}
+
+
+/**
+ * sp--
+ */
+void CodeWriter::decrementStackPointer() {
+    file_stream << "@SP" << std::endl;
+    file_stream << "M=M-1" << std::endl;
+}
+
 void CodeWriter::writeArithmetic(const std::string& command) {
 
 }
