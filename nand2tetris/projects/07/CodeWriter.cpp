@@ -16,6 +16,33 @@ void CodeWriter::incrementStackPointer() {
     file_stream << "M=M+1" << std::endl;
 }
 
+void CodeWriter::pushSegment(const std::string &segment, int index) {
+
+}
+
+/**
+ * sp--, value = *sp, *(segment + i) = value
+ */
+void CodeWriter::popSegment(const std::string &segment, int index) {
+    decrementStackPointer();
+    retrieveFromStack();
+    file_stream << "@" + segment << std::endl;
+    file_stream << "A=M" << std::endl;
+    for(int i = 0;i < index;i++){
+        file_stream << "A=A+1" << std::endl;
+    }
+}
+
+void CodeWriter::addToStack() {
+
+}
+
+void CodeWriter::retrieveFromStack() {\
+    file_stream << "@SP" << std::endl;
+    file_stream << "A=M" << std::endl;
+    file_stream << "D=M" << std::endl;
+}
+
 
 /**
  * sp--

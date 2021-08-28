@@ -17,7 +17,11 @@ public:
     void close();
 private:
     void incrementStackPointer();
+    void addToStack();
+    void retrieveFromStack();
     void decrementStackPointer();
+    void pushSegment(const std::string& segment, int index);
+    void popSegment(const std::string& segment, int index);
     std::string base_file_name;
     std::fstream file_stream;
 };
