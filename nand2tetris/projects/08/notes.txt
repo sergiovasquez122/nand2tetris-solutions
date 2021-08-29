@@ -59,3 +59,71 @@ M=D
 return
 
 // how this can be written
+
+// frame = LCL
+@LCL
+D=M
+@R13
+M=D
+// retAddress = *(frame-5)
+@R13
+D=M
+for(int i = 0;i < 5;i++)
+    D=D-1
+A=D
+D=A
+@R14
+M=D
+// *ARG = POP()
+decrementStackPointer()
+retrieveValueFromStack()
+@ARG
+A=M
+M=D
+// SP = ARG + 1
+@ARG
+A=M
+A=A+1
+D=A
+@SP
+M=D
+// THAT = *(frame - 1)
+@R13
+D=M
+for(int i = 0;i < 1;i++)
+    D=D-1
+A=D
+D=A
+@THAT
+M=D
+// THIS = *(frame - 2)
+@R13
+D=M
+for(int i = 0;i < 2;i++)
+    D=D-1
+A=D
+D=A
+@THIS
+M=D
+// ARG =  *(frame - 3)
+@R13
+D=M
+for(int i = 0;i < 2;i++)
+    D=D-1
+A=D
+D=A
+@ARG
+M=D
+// LCL =  *(frame - 4)
+@R13
+D=M
+for(int i = 0;i < 2;i++)
+    D=D-1
+A=D
+D=A
+@LCL
+M=D
+// goto retAddr
+@R14
+A=M
+0;JMP
