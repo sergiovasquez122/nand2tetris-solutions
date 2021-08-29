@@ -30,22 +30,29 @@ int main(int argc, char* argv[]) {
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_LABEL){
             std::string first_arg = parser.arg1();
+            std::cout << first_arg << std::endl;
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_GOTO){
             std::string first_arg = parser.arg1();
+            std::cout << first_arg << std::endl;
+
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_FUNCTION){
             std::string first_arg = parser.arg1();
             int second_arg = parser.arg2();
+            std::cout << first_arg << std::endl;
+
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_CALL){
             std::string first_arg = parser.arg1();
             int second_arg = parser.arg2();
+            std::cout << first_arg << std::endl;
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_RETURN){
+            std::cout << "return" << std::endl;
 
         } else{
-            throw std::runtime_error("unexpected argument");
+            throw std::runtime_error("unexpected argument: ");
         }
     }
    // writer.close();

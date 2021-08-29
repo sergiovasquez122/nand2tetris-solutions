@@ -72,8 +72,6 @@ std::string Parser::arg1() const {
     return current_instruction.substr(first_space_idx + 1, last_space_idx - first_space_idx - 1);
 }
 
-
-
 void Parser::decideInstructionType() {
     if(currentInstruction().empty()){
         current_instruction_type = INSTRUCTION_TYPE::C_PSEUDO;
