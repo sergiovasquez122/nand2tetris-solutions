@@ -121,18 +121,23 @@ std::ostream &operator<<(std::ostream &out, const INSTRUCTION_TYPE &instructionT
         case INSTRUCTION_TYPE::C_ARITHMETIC: out << "C_ARITHMETIC"; break;
         case INSTRUCTION_TYPE::C_PUSH: out << "C_PUSH"; break;
         case INSTRUCTION_TYPE::C_POP: out << "C_POP"; break;
-            // instructions will be implemented for project 8.
         case INSTRUCTION_TYPE::C_LABEL:
+            out << "C_LABEL";
             break;
         case INSTRUCTION_TYPE::C_GOTO:
+            out << "C_GOTO";
             break;
         case INSTRUCTION_TYPE::C_IF:
+            out << "C_IF";
             break;
         case INSTRUCTION_TYPE::C_FUNCTION:
+            out << "C_FUNCTION";
             break;
         case INSTRUCTION_TYPE::C_RETURN:
+            out << "C_RETURN";
             break;
         case INSTRUCTION_TYPE::C_CALL:
+            out << "C_CALL";
             break;
         case INSTRUCTION_TYPE::C_PSEUDO:
             out << "C_PSEUDO";
