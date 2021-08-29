@@ -1,0 +1,61 @@
+function f nVars
+
+// can be written as
+write_label(f)
+for(int i = 0;i < nVars;i++)
+    write_constant(0);
+
+call f nArgs
+// can be written as
+
+// stores the return address
+@returnAddress // requires us to generate a label then add @ in the beginning
+D=A
+addToStack()
+incrementStackPointer()
+// save the caller's LCL
+@LCL
+D=M
+addToStack()
+incrementStackPointer();
+// save the caller's ARG
+@ARG
+D=M
+addToStack();
+incrementStackPointer();
+// save the caller's THIS
+@THIS
+D=M
+addToStack();
+incrementStackPointer();
+// save the caller's THAT
+@THAT
+D=M
+addToStack();
+incrementStackPointer();
+// ARG = SP - 5 - nARGS
+@SP
+D=M
+@ARG
+M=D
+@5
+D=A
+@ARG
+M=M-D
+@nARGS
+D=A
+@ARG
+M=M-D
+// LCL = SP
+@SP
+D=M
+@LCL
+M=D
+// go to f
+@f
+0;JMP
+(returnAddress) // when f returns it will pop the return address and get us to here.
+
+return
+
+// how this can be written

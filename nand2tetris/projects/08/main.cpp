@@ -25,14 +25,22 @@ int main(int argc, char* argv[]) {
             std::string first_arg = parser.arg1();
         //    writer.writeArithmetic(first_arg);
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_IF){
+            std::string first_arg = parser.arg1();
+
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_LABEL){
+            std::string first_arg = parser.arg1();
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_GOTO){
+            std::string first_arg = parser.arg1();
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_FUNCTION){
+            std::string first_arg = parser.arg1();
+            int second_arg = parser.arg2();
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_CALL){
+            std::string first_arg = parser.arg1();
+            int second_arg = parser.arg2();
 
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_RETURN){
 
