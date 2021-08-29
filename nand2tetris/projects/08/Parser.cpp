@@ -105,7 +105,14 @@ void Parser::load_table() {
     symbol_table.insert({"and", INSTRUCTION_TYPE::C_ARITHMETIC});
     symbol_table.insert({"or", INSTRUCTION_TYPE::C_ARITHMETIC});
     symbol_table.insert({"not", INSTRUCTION_TYPE::C_ARITHMETIC});
-    // more instructions will be added for project 8
+    // instructions related to branching
+    symbol_table.insert({"label", INSTRUCTION_TYPE::C_LABEL});
+    symbol_table.insert({"goto", INSTRUCTION_TYPE::C_GOTO});
+    symbol_table.insert({"if-goto", INSTRUCTION_TYPE::C_IF});
+    // instructions related to function calls.
+    symbol_table.insert({"return", INSTRUCTION_TYPE::C_RETURN});
+    symbol_table.insert({"call", INSTRUCTION_TYPE::C_CALL});
+    symbol_table.insert({"function", INSTRUCTION_TYPE::C_FUNCTION});
 }
 
 std::ostream &operator<<(std::ostream &out, const INSTRUCTION_TYPE &instructionType) {
