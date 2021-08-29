@@ -127,3 +127,18 @@ M=D
 @R14
 A=M
 0;JMP
+
+// how the bootstrap code can be written
+// ie.
+// SP = 256
+// call sys.init
+
+// this set SP to 256
+@256
+D=A
+@SP
+M=D
+// this will call sys.init
+// assume that we already written the call command
+// this will allow us to leverage it for this case
+writeCall("sys.init", 0);
