@@ -198,7 +198,16 @@ void CodeWriter::writeGoto(const std::string &label){
 }
 
 void CodeWriter::writeIf(const std::string &label) {
-
+    // remove the condition from the stack
+    decrementStackPointer();
+    retrieveFromStack();
+    // write the possible address to jump to.
+    std::string extensionToLabel;
+    if(!functions_on_stack.empty()){
+        extensionToLabel = functions_on_stack.top() + "$";
+    }
+    file_stream << "@" << extensionToLabel << label << std::endl;
+    file_stream << "D;JNE" << std::endl;
 }
 
 void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
