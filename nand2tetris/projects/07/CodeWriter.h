@@ -35,6 +35,12 @@ private:
 
     void write_pointer(const std::string &segment, int index);
     int jump_counter = 0;
+
+    void write_eq();
+
+    void write_lt();
+
+    void write_gt();
 };
 
 std::string get_base_path(const std::string& path);

@@ -79,6 +79,8 @@ void CodeWriter::writeArithmetic(const std::string& command) {
     if(command == "not" || command == "neg"){
         std::string value = (command == "not" ? "D=!D" : "D=-D");
         file_stream << value << std::endl;
+        addToStack();
+        incrementStackPointer();
     } else {
         // store the topmost stack information in temporary register, R13 is guaranteed to be allowed to be used.
         file_stream << "@R13" << std::endl;
@@ -91,25 +93,84 @@ void CodeWriter::writeArithmetic(const std::string& command) {
         // determine operation based on command.
         if(command == "add"){
             file_stream << "D=D+M" << std::endl;
+            addToStack();
+            incrementStackPointer();
         } else if(command == "sub"){
             file_stream << "D=D-M" << std::endl;
+            addToStack();
+            incrementStackPointer();
         } else if(command == "and"){
             file_stream << "D=D&M" << std::endl;
+            addToStack();
+            incrementStackPointer();
         } else if(command == "or"){
             file_stream << "D=D|M" << std::endl;
+            addToStack();
+            incrementStackPointer();
         } else if(command == "eq"){
-            file_stream << "D=D-M" << std::endl;
+            write_eq();
         } else if(command == "lt"){
-            file_stream << "D=D-M" << std::endl;
+            write_lt();
         } else if(command == "gt"){
-            file_stream << "D=D-M" << std::endl;
+            write_gt();
         } else {
             throw std::runtime_error("invalid argument");
         }
     }
-    // add the computed value to stack and restore balance
+}
+
+void CodeWriter::write_eq(){
+    file_stream << "D=D-M" << std::endl;
+    // we are currently set to R13
+    file_stream << "M=D" << std::endl;
+    // assume that they were equal and add to stack.
+    file_stream << "D=-1" << std::endl;
     addToStack();
     incrementStackPointer();
+    file_stream << "@R13" << std::endl;
+    file_stream << "D=M" << std::endl;
+    file_stream << "@JUMP." << jump_counter << std::endl;
+    file_stream << "D;JEQ" << std::endl;
+    decrementStackPointer();
+    retrieveFromStack();
+    pushConstant(0);
+    file_stream << "(JUMP." << (jump_counter++) << ")" << std::endl;
+}
+
+void CodeWriter::write_lt(){
+    file_stream << "D=D-M" << std::endl;
+    // we are currently set to R13
+    file_stream << "M=D" << std::endl;
+    // assume that they were less then and add to stack.
+    file_stream << "D=-1" << std::endl;
+    addToStack();
+    incrementStackPointer();
+    file_stream << "@R13" << std::endl;
+    file_stream << "D=M" << std::endl;
+    file_stream << "@JUMP." << jump_counter << std::endl;
+    file_stream << "D;JLT" << std::endl;
+    decrementStackPointer();
+    retrieveFromStack();
+    pushConstant(0);
+    file_stream << "(JUMP." << (jump_counter++) << ")" << std::endl;
+}
+
+void CodeWriter::write_gt(){
+    file_stream << "D=D-M" << std::endl;
+    // we are currently set to R13
+    file_stream << "M=D" << std::endl;
+    // assume that they were less then and add to stack.
+    file_stream << "D=-1" << std::endl;
+    addToStack();
+    incrementStackPointer();
+    file_stream << "@R13" << std::endl;
+    file_stream << "D=M" << std::endl;
+    file_stream << "@JUMP." << jump_counter << std::endl;
+    file_stream << "D;JGT" << std::endl;
+    decrementStackPointer();
+    retrieveFromStack();
+    pushConstant(0);
+    file_stream << "(JUMP." << (jump_counter++) << ")" << std::endl;
 }
 
 void CodeWriter::writePush(const std::string &segment, int index) {
