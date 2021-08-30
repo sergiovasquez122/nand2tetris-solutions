@@ -38,6 +38,17 @@ private:
                                                                  {"argument", "ARG"}};
     std::stack<std::string> functions_on_stack;
     std::unordered_map<std::string, int> function_label_to_running_integer;
+
+    void pop_pointer(const std::string &segment, int index);
+
+    void write_pointer(const std::string &segment, int index);
+    int jump_counter = 0;
+
+    void write_eq();
+
+    void write_lt();
+
+    void write_gt();
 };
 
 std::string get_base_path(const std::string& path);
