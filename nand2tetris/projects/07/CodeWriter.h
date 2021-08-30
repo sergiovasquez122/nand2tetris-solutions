@@ -34,6 +34,7 @@ private:
     void pop_pointer(const std::string &segment, int index);
 
     void write_pointer(const std::string &segment, int index);
+    int jump_counter = 0;
 };
 
 std::string get_base_path(const std::string& path);
