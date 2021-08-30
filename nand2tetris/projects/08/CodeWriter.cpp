@@ -287,17 +287,15 @@ void CodeWriter::writeIf(const std::string &label) {
 
 void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
     // add a new function on the stack. this function will be popped in writecall
-    functions_on_stack.push(function_name);
     file_stream << "(" << function_name << ")" << std::endl;
     for(int i = 0;i < nVars;i++)
         pushConstant(0);
 }
 
 void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
-    std::string current_function = functions_on_stack.top();
-    int running_idx = function_label_to_running_integer[current_function];
+    int running_idx = function_label_to_running_integer[function_name];
     // stores the return address
-    file_stream << "@" << current_function << "." << running_idx << std::endl;
+    file_stream << "@" << function_name << "$" << running_idx << std::endl;
     file_stream << "D=A" << std::endl;
     addToStack();
     incrementStackPointer();
@@ -342,9 +340,18 @@ void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
     file_stream << "@" << function_name << std::endl;
     file_stream << "0;JMP" << std::endl;
     // when f returns go back here
-    file_stream << "(" << current_function << "." << running_idx << ")"  << std::endl;
+    file_stream << "(" << function_name << "$" << running_idx << ")"  << std::endl;
 }
 
 void CodeWriter::writeReturn() {
 
+}
+
+void CodeWriter::bootStrapCode() {
+    file_stream << "@256" << std::endl;
+    file_stream << "D=A" << std::endl;
+    file_stream << "@SP" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // sys.init is the function we start off with.
+    writeCall("sys.init", 0);
 }

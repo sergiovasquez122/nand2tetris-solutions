@@ -24,6 +24,7 @@ public:
     void writeReturn();
     void close();
 private:
+    void bootStrapCode();
     void incrementStackPointer();
     void addToStack();
     void retrieveFromStack();
