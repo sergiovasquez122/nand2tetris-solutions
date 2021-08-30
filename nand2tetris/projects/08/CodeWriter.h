@@ -21,6 +21,7 @@ public:
     void writeIf(const std::string& label);
     void writeFunction(const std::string& function_name, int nVars);
     void writeCall(const std::string& function_name, int nArgs);
+    void writeReturn();
     void close();
 private:
     void incrementStackPointer();

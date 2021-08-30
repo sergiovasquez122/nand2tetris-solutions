@@ -296,3 +296,7 @@ void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
 void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
 
 }
+
+void CodeWriter::writeReturn() {
+
+}
