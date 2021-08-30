@@ -295,7 +295,7 @@ void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
 
 void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
     std::string current_function = functions_on_stack.top();
-    int running_idx = function_label_to_running_integer[current_function]++;
+    int running_idx = function_label_to_running_integer[current_function];
     // stores the return address
     file_stream << "@" << current_function << "." << running_idx << std::endl;
     file_stream << "D=A" << std::endl;
@@ -333,16 +333,16 @@ void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
     file_stream << "D=A" << std::endl;
     file_stream << "@ARG" << std::endl;
     file_stream << "M=M-D" << std::endl;
-// LCL = SP
-file_stream << "@SP" << std::endl;
-file_stream << "D=M" << std::endl;
-file_stream << "@LCL" << std::endl;
-file_stream << "M=D" << std::endl;
-// go to f
-file_stream << "@" << function_name << std::endl;
-file_stream << "0;JMP" << std::endl;
-// when f returns go back here
-file_stream << "(" << current_function << "." << running_idx << ")"  << std::endl;
+    // LCL = SP
+    file_stream << "@SP" << std::endl;
+    file_stream << "D=M" << std::endl;
+    file_stream << "@LCL" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // go to f
+    file_stream << "@" << function_name << std::endl;
+    file_stream << "0;JMP" << std::endl;
+    // when f returns go back here
+    file_stream << "(" << current_function << "." << running_idx << ")"  << std::endl;
 }
 
 void CodeWriter::writeReturn() {
