@@ -16,6 +16,11 @@ public:
     void writeArithmetic(const std::string& command);
     void writePush(const std::string& segment, int index);
     void writePop(const std::string& segment, int index);
+    void writeLabel(const std::string& label);
+    void writeGoto(const std::string& label);
+    void writeIf(const std::string& label);
+    void writeFunction(const std::string& function_name, int nVars);
+    void writeCall(const std::string& function_name, int nArgs);
     void close();
 private:
     void incrementStackPointer();
@@ -25,11 +30,6 @@ private:
     void pushConstant(int index);
     void pushSegment(const std::string& segment, int index);
     void popSegment(const std::string& segment, int index);
-    void writeLabel(const std::string& label);
-    void writeGoto(const std::string& label);
-    void writeIf(const std::string& label);
-    void writeFunction(const std::string& function_name, int nVars);
-    void writeCall(const std::string& function_name, int nArgs);
     std::string base_file_name;
     std::fstream file_stream;
     std::unordered_map<std::string, std::string> symbol_table = {{"this", "THIS"},
