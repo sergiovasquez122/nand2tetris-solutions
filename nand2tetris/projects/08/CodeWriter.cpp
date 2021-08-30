@@ -185,11 +185,16 @@ void CodeWriter::writeLabel(const std::string &label) {
     if(!functions_on_stack.empty()){
         extensionToLabel = functions_on_stack.top() + "$";
     }
-    file_stream << "(" << extensionToLabel << label << std::endl;
+    file_stream << "(" << extensionToLabel << label << ")" << std::endl;
 }
 
-void CodeWriter::writeGoto(const std::string &label) {
-
+void CodeWriter::writeGoto(const std::string &label){
+    std::string extensionToLabel;
+    if(!functions_on_stack.empty()){
+        extensionToLabel = functions_on_stack.top() + "$";
+    }
+    file_stream << "@" << extensionToLabel << label << std::endl;
+    file_stream << "0;JMP" << std::endl;
 }
 
 void CodeWriter::writeIf(const std::string &label) {
