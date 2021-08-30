@@ -26,8 +26,7 @@ int main(int argc, char* argv[]) {
         //    writer.writeArithmetic(first_arg);
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_IF){
             std::string first_arg = parser.arg1();
-
-
+            std:: cout << first_arg << std::endl;
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_LABEL){
             std::string first_arg = parser.arg1();
             std::cout << first_arg << std::endl;
