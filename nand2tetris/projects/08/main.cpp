@@ -36,13 +36,13 @@ int main(int argc, char* argv[]) {
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_FUNCTION){
             std::string first_arg = parser.arg1();
             int second_arg = parser.arg2();
-
+            writer.writeFunction(first_arg, second_arg);
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_CALL){
             std::string first_arg = parser.arg1();
             int second_arg = parser.arg2();
-
+            writer.writeCall(first_arg, second_arg);
         } else if(parser.currentInstructionType() == INSTRUCTION_TYPE::C_RETURN){
-
+            writer.writeReturn();
         } else{
             throw std::runtime_error("unexpected argument: ");
         }
