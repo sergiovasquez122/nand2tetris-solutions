@@ -30,6 +30,10 @@ private:
                                                                  {"that", "THAT"},
                                                                  {"local", "LCL"},
                                                                  {"argument", "ARG"}};
+
+    void pop_pointer(const std::string &segment, int index);
+
+    void write_pointer(const std::string &segment, int index);
 };
 
 std::string get_base_path(const std::string& path);

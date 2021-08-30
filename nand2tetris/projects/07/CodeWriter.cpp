@@ -77,7 +77,7 @@ void CodeWriter::writeArithmetic(const std::string& command) {
     retrieveFromStack();
     // commands are unary operator any other would be binary
     if(command == "not" || command == "neg"){
-        std::string value = (command == "not" ? "!D" : "-D");
+        std::string value = (command == "not" ? "D=!D" : "D=-D");
         file_stream << value << std::endl;
     } else {
         // store the topmost stack information in temporary register, R13 is guaranteed to be allowed to be used.
@@ -123,8 +123,9 @@ void CodeWriter::writePush(const std::string &segment, int index) {
         addToStack();
         incrementStackPointer();
     } else if (segment == "pointer"){
-        std::string segment_translated = (index == 0) ? "this" : "that";
-        writePush(segment_translated, 0);
+        write_pointer(segment, index);
+        addToStack();
+        incrementStackPointer();
     } else if(segment == "local" || segment == "argument" || segment == "this" || segment == "that"){
         std::string segment_translated = symbol_table.at(segment);
         pushSegment(segment_translated, index);
@@ -138,6 +139,18 @@ void CodeWriter::writePush(const std::string &segment, int index) {
     }
 }
 
+void CodeWriter::pop_pointer(const std::string& segment, int index){
+    std::string segment_translated = (index == 0) ? "@THIS" : "@THAT";
+    file_stream << segment_translated << std::endl;
+    file_stream << "M=D" << std::endl;
+}
+
+void CodeWriter::write_pointer(const std::string& segment, int index){
+    std::string segment_translated = (index == 0) ? "@THIS" : "@THAT";
+    file_stream << segment_translated << std::endl;
+    file_stream << "D=M" << std::endl;
+}
+
 void CodeWriter::writePop(const std::string &segment, int index) {
     file_stream << "// " << segment << " " << index << std::endl;
     if(segment == "temp"){
@@ -147,8 +160,9 @@ void CodeWriter::writePop(const std::string &segment, int index) {
         file_stream << "@" << read_idx << std::endl;
         file_stream << "M=D" << std::endl;
     } else if (segment == "pointer"){
-        std::string segment_translated = (index == 0) ? "this" : "that";
-        writePop(segment_translated, 0);
+        decrementStackPointer();
+        retrieveFromStack();
+        pop_pointer(segment, index);
     } else if(segment == "local" || segment == "argument" || segment == "this" || segment == "that"){
         std::string segment_translated = symbol_table.at(segment);
         popSegment(segment_translated, index);
