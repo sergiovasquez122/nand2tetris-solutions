@@ -345,6 +345,74 @@ void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
 
 void CodeWriter::writeReturn() {
 
+    // frame = LCL
+    file_stream << "@LCL" << std::endl;
+    file_stream << "D=M" << std::endl;
+    file_stream << "@FRAME" << std::endl;
+    file_stream << "M=D" << std::endl;
+
+    // retAddress = *(frame-5)
+    file_stream << "@FRAME" << std::endl;
+    file_stream << "D=M" << std::endl;
+    for(int i = 0; i < 5;i++) {
+        file_stream << "D=D-1" << std::endl;
+    }
+    file_stream << "A=D" << std::endl;
+    file_stream << "D=A" << std::endl;
+    file_stream << "@RETURN_ADDRESS" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // *ARG = POP()
+    decrementStackPointer();
+    retrieveFromStack();
+    file_stream << "@ARG" << std::endl;
+    file_stream << "A=M" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // SP = ARG + 1
+    file_stream << "@ARG" << std::endl;
+    file_stream << "A=M" << std::endl;
+    file_stream << "D=A+1" << std::endl;
+    file_stream << "@SP" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // THAT = *(frame - 1)
+    file_stream << "@FRAME" << std::endl;
+    file_stream << "D=M" << std::endl;
+    for(int i = 0;i < 1;i++)
+        file_stream << "D=D-1" << std::endl;
+    file_stream << "A=D" << std::endl;
+    file_stream << "D=A" << std::endl;
+    file_stream << "@THAT" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // THIS = *(frame - 2)
+    file_stream << "@FRAME" << std::endl;
+    file_stream << "D=M" << std::endl;
+    for(int i = 0;i < 2;i++)
+        file_stream << "D=D-1" << std::endl;
+    file_stream << "A=D" << std::endl;
+    file_stream << "D=A" << std::endl;
+    file_stream << "@THIS" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // ARG =  *(frame - 3)
+    file_stream << "@FRAME" << std::endl;
+    file_stream << "D=M" << std::endl;
+    for(int i = 0;i < 3;i++)
+        file_stream << "D=D-1" << std::endl;
+    file_stream << "A=D" << std::endl;
+    file_stream << "D=A" << std::endl;
+    file_stream << "@ARG" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // LCL =  *(frame - 4)
+    file_stream << "@FRAME" << std::endl;
+    file_stream << "D=M" << std::endl;
+    for(int i = 0;i < 4;i++)
+        file_stream << "D=D-1" << std::endl;
+    file_stream << "A=D" << std::endl;
+    file_stream << "D=A" << std::endl;
+    file_stream << "@LCL" << std::endl;
+    file_stream << "M=D" << std::endl;
+    // goto retAddr
+    file_stream << "@RETURN_ADDRESS" << std::endl;
+    file_stream << "A=M" << std::endl;
+    file_stream << "0;JMP" << std::endl;
 }
 
 void CodeWriter::bootStrapCode() {
