@@ -341,6 +341,8 @@ file_stream << "M=D" << std::endl;
 // go to f
 file_stream << "@" << function_name << std::endl;
 file_stream << "0;JMP" << std::endl;
+// when f returns go back here
+file_stream << "(" << current_function << "." << running_idx << ")"  << std::endl;
 }
 
 void CodeWriter::writeReturn() {
