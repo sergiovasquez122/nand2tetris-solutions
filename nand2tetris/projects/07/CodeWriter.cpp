@@ -188,6 +188,7 @@ void CodeWriter::close() {
 }
 
 std::string get_base_path(const std::string &path) {
-    size_t pos_idx = path.find_last_of('.');
-    return path.substr(0, pos_idx);
+    size_t extension_idx = path.find_last_of('.');
+    size_t slash_idx = path.find_last_of('\\');
+    return path.substr(slash_idx + 1, extension_idx - slash_idx - 1);
 }
