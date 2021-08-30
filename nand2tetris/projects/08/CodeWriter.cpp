@@ -379,7 +379,7 @@ void CodeWriter::writeReturn() {
     for(int i = 0;i < 1;i++)
         file_stream << "D=D-1" << std::endl;
     file_stream << "A=D" << std::endl;
-    file_stream << "D=A" << std::endl;
+    file_stream << "D=M" << std::endl;
     file_stream << "@THAT" << std::endl;
     file_stream << "M=D" << std::endl;
     // THIS = *(frame - 2)
@@ -388,7 +388,7 @@ void CodeWriter::writeReturn() {
     for(int i = 0;i < 2;i++)
         file_stream << "D=D-1" << std::endl;
     file_stream << "A=D" << std::endl;
-    file_stream << "D=A" << std::endl;
+    file_stream << "D=M" << std::endl;
     file_stream << "@THIS" << std::endl;
     file_stream << "M=D" << std::endl;
     // ARG =  *(frame - 3)
@@ -397,7 +397,7 @@ void CodeWriter::writeReturn() {
     for(int i = 0;i < 3;i++)
         file_stream << "D=D-1" << std::endl;
     file_stream << "A=D" << std::endl;
-    file_stream << "D=A" << std::endl;
+    file_stream << "D=M" << std::endl;
     file_stream << "@ARG" << std::endl;
     file_stream << "M=D" << std::endl;
     // LCL =  *(frame - 4)
@@ -406,7 +406,7 @@ void CodeWriter::writeReturn() {
     for(int i = 0;i < 4;i++)
         file_stream << "D=D-1" << std::endl;
     file_stream << "A=D" << std::endl;
-    file_stream << "D=A" << std::endl;
+    file_stream << "D=M" << std::endl;
     file_stream << "@LCL" << std::endl;
     file_stream << "M=D" << std::endl;
     // goto retAddr
