@@ -174,3 +174,27 @@ std::string get_base_path(const std::string &path) {
     size_t slash_idx = path.find_last_of('/');
     return path.substr(slash_idx + 1, extension_idx - slash_idx - 1);
 }
+
+void CodeWriter::writeLabel(const std::string &label) {
+
+}
+
+void CodeWriter::writeGoto(const std::string &label) {
+
+}
+
+void CodeWriter::writeIf(const std::string &label) {
+
+}
+
+void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
+    // add a new function on the stack. this function will be popped in writecall
+    functions_on_stack.push(function_name);
+    file_stream << "(" << function_name << ")" << std::endl;
+    for(int i = 0;i < nVars;i++)
+        pushConstant(0);
+}
+
+void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
+
+}
