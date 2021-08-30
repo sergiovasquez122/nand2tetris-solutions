@@ -175,8 +175,17 @@ std::string get_base_path(const std::string &path) {
     return path.substr(slash_idx + 1, extension_idx - slash_idx - 1);
 }
 
+// labels are of the form label xxx
+// if a label is not of a function we can write it directly
+// ie (xxx)
+// if a label is in a function we can write is as follow
+// (functionName$label)
 void CodeWriter::writeLabel(const std::string &label) {
-
+    std::string extensionToLabel;
+    if(!functions_on_stack.empty()){
+        extensionToLabel = functions_on_stack.top() + "$";
+    }
+    file_stream << "(" << extensionToLabel << label << std::endl;
 }
 
 void CodeWriter::writeGoto(const std::string &label) {
