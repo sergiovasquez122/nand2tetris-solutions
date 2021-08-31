@@ -293,7 +293,7 @@ void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
 }
 
 void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
-    int running_idx = function_label_to_running_integer[function_name];
+    int running_idx = function_label_to_running_integer[function_name]++;
     // stores the return address
     file_stream << "@" << function_name << "$" << running_idx << std::endl;
     file_stream << "D=A" << std::endl;
@@ -321,16 +321,12 @@ void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
     // ARG = SP - 5 - nARGS
     file_stream << "@SP" << std::endl;
     file_stream << "D=M" << std::endl;
+    file_stream << "@" << nArgs << std::endl;
+    file_stream << "D=D-A" << std::endl;
+    file_stream << "@5" << std::endl;
+    file_stream << "D=D-A" << std::endl;
     file_stream << "@ARG" << std::endl;
     file_stream << "M=D" << std::endl;
-    file_stream << "@5" << std::endl;
-    file_stream << "D=A" << std::endl;
-    file_stream << "@ARG" << std::endl;
-    file_stream << "M=M-D" << std::endl;
-    file_stream << "@" << nArgs << std::endl;
-    file_stream << "D=A" << std::endl;
-    file_stream << "@ARG" << std::endl;
-    file_stream << "M=M-D" << std::endl;
     // LCL = SP
     file_stream << "@SP" << std::endl;
     file_stream << "D=M" << std::endl;
@@ -353,12 +349,11 @@ void CodeWriter::writeReturn() {
 
     // retAddress = *(frame-5)
     file_stream << "@FRAME" << std::endl;
-    file_stream << "D=M" << std::endl;
+    file_stream << "A=M" << std::endl;
     for(int i = 0; i < 5;i++) {
-        file_stream << "D=D-1" << std::endl;
+        file_stream << "A=A-1" << std::endl;
     }
-    file_stream << "A=D" << std::endl;
-    file_stream << "D=A" << std::endl;
+    file_stream << "D=M" << std::endl;
     file_stream << "@RETURN_ADDRESS" << std::endl;
     file_stream << "M=D" << std::endl;
     // *ARG = POP()
@@ -375,37 +370,33 @@ void CodeWriter::writeReturn() {
     file_stream << "M=D" << std::endl;
     // THAT = *(frame - 1)
     file_stream << "@FRAME" << std::endl;
-    file_stream << "D=M" << std::endl;
+    file_stream << "A=M" << std::endl;
     for(int i = 0;i < 1;i++)
-        file_stream << "D=D-1" << std::endl;
-    file_stream << "A=D" << std::endl;
+        file_stream << "A=A-1" << std::endl;
     file_stream << "D=M" << std::endl;
     file_stream << "@THAT" << std::endl;
     file_stream << "M=D" << std::endl;
     // THIS = *(frame - 2)
     file_stream << "@FRAME" << std::endl;
-    file_stream << "D=M" << std::endl;
+    file_stream << "A=M" << std::endl;
     for(int i = 0;i < 2;i++)
-        file_stream << "D=D-1" << std::endl;
-    file_stream << "A=D" << std::endl;
+        file_stream << "A=A-1" << std::endl;
     file_stream << "D=M" << std::endl;
     file_stream << "@THIS" << std::endl;
     file_stream << "M=D" << std::endl;
     // ARG =  *(frame - 3)
     file_stream << "@FRAME" << std::endl;
-    file_stream << "D=M" << std::endl;
+    file_stream << "A=M" << std::endl;
     for(int i = 0;i < 3;i++)
-        file_stream << "D=D-1" << std::endl;
-    file_stream << "A=D" << std::endl;
+        file_stream << "A=A-1" << std::endl;
     file_stream << "D=M" << std::endl;
     file_stream << "@ARG" << std::endl;
     file_stream << "M=D" << std::endl;
     // LCL =  *(frame - 4)
     file_stream << "@FRAME" << std::endl;
-    file_stream << "D=M" << std::endl;
+    file_stream << "A=M" << std::endl;
     for(int i = 0;i < 4;i++)
-        file_stream << "D=D-1" << std::endl;
-    file_stream << "A=D" << std::endl;
+        file_stream << "A=A-1" << std::endl;
     file_stream << "D=M" << std::endl;
     file_stream << "@LCL" << std::endl;
     file_stream << "M=D" << std::endl;
