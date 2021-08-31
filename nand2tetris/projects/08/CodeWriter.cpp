@@ -2,6 +2,7 @@
 
 CodeWriter::CodeWriter(const std::string &filename): base_file_name(get_base_path(filename)) {
     file_stream.open(base_file_name + ".asm", std::fstream::out);
+    bootStrapCode();
 }
 
 /**
@@ -295,7 +296,7 @@ void CodeWriter::writeFunction(const std::string &function_name, int nVars) {
 void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
     int running_idx = function_label_to_running_integer[function_name]++;
     // stores the return address
-    file_stream << "@" << function_name << "$" << running_idx << std::endl;
+    file_stream << "@" << base_file_name << "." << function_name << "$" << running_idx << std::endl;
     file_stream << "D=A" << std::endl;
     addToStack();
     incrementStackPointer();
@@ -336,7 +337,7 @@ void CodeWriter::writeCall(const std::string &function_name, int nArgs) {
     file_stream << "@" << function_name << std::endl;
     file_stream << "0;JMP" << std::endl;
     // when f returns go back here
-    file_stream << "(" << function_name << "$" << running_idx << ")"  << std::endl;
+    file_stream << "(" << base_file_name << "." <<  function_name << "$" << running_idx << ")"  << std::endl;
 }
 
 void CodeWriter::writeReturn() {
@@ -412,5 +413,5 @@ void CodeWriter::bootStrapCode() {
     file_stream << "@SP" << std::endl;
     file_stream << "M=D" << std::endl;
     // sys.init is the function we start off with.
-    writeCall("sys.init", 0);
+    writeCall("Sys.init", 0);
 }
