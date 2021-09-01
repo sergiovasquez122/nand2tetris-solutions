@@ -9,26 +9,33 @@
  */
 class Math {
 
-    static Array bitField;
+  static int powers_of_two;
 
-    /** Initializes the library. */
-    function void init() {
-      var int i;
-      var int current_idx;
-      let bitField = Array.new(16);
-      let i = 0;
-      let current_idx = 1;
-      while(i < 16){
-        let bitField[0] = current_idx;
-        let i = i + 1;
-        let current_idx = current_idx + current_idx;
-      }
-      return;
-    }
+   /** Initializes the library. */
+   function void init() {
+       let powers_of_two = Array.new(16);
+       let powers_of_two[0] = 1;
+       let powers_of_two[1] = 2;
+       let powers_of_two[2] = 4;
+       let powers_of_two[3] = 8;
+       let powers_of_two[4] = 16;
+       let powers_of_two[5] = 32;
+       let powers_of_two[6] = 64;
+       let powers_of_two[7] = 128;
+       let powers_of_two[8] = 256;
+       let powers_of_two[9] = 512;
+       let powers_of_two[10] = 1024;
+       let powers_of_two[11] = 2048;
+       let powers_of_two[12] = 4096;
+       let powers_of_two[13] = 8192;
+       let powers_of_two[14] = 16384;
+       let powers_of_two[15] = 16384+16384;
+       return;
+   }
 
     function boolean bit(int x, int i){
-      var int return_value;
-      let return_value = x & bitField[i];
+      var boolean return_value;
+      let return_value = (x & powers_of_two[i]) = 1;
       return return_value;
     }
 
@@ -50,16 +57,17 @@ class Math {
       var int i;
       var int sum;
       var int shifted_x;
-      var int ith_bit_of_y;
+      var boolean ith_bit_of_y;
       let i = 0;
       let sum = 0;
       let shifted_x = x;
       while(i < 16){
         let ith_bit_of_y = Math.bit(y, i);
-        if(ith_bit_of_y = 1){
+        if(ith_bit_of_y){
           let sum = sum + shifted_x;
         }
         let shifted_x = shifted_x + shifted_x;
+        let i = i + 1;
       }
       return sum;
     }
@@ -110,7 +118,7 @@ class Math {
       let lo = 0;
       let hi = x;
       while(~(lo > hi)){
-        let mid = (lo + hi) / 2;
+        let mid = lo + ((hi - lo) / 2);
         let sqr = mid + mid;
         if(sqr < x) {
           let lo = mid + 1;
