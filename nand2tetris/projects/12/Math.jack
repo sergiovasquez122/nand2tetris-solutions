@@ -79,9 +79,9 @@ class Math {
       }
       let q = Math.divide_helper(x, y + y);
       if((x - 2 * q * y) < y){
-        return 2 * q;
+        return q + q;
       } else {
-        return 2 * q + 1;
+        return q + q + 1;
       }
     }
 
@@ -119,7 +119,7 @@ class Math {
       let hi = x;
       while(~(lo > hi)){
         let mid = lo + ((hi - lo) / 2);
-        let sqr = mid + mid;
+        let sqr = mid * mid;
         if(sqr < x) {
           let lo = mid + 1;
         }
