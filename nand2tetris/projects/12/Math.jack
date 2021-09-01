@@ -72,14 +72,16 @@ class Math {
 
     function int divide_helper(int x, int y){
       var int q;
+      var int doubleQ;
       if(y > x){
         return 0;
       }
       let q = Math.divide_helper(x, y + y);
-      if((x - 2 * q * y) < y){
-        return q + q;
+      let doubleQ = q + q;
+      if((x - (doubleQ * y)) < y){
+        return doubleQ;
       } else {
-        return q + q + 1;
+        return doubleQ + 1;
       }
     }
 
