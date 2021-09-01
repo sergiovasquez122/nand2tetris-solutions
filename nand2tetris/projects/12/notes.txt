@@ -96,3 +96,103 @@ Why is log_2(n) attractive?
 - As the size of the input doubles, an algorithm with
   logarithmic running-time requires 1 additional step
 
+Mathematical Operations
+
+Class Math {
+    function void init()
+    function void abs(int x)
+    function void multiply(int x, int y) // shown two different multiplication algorithms, one was naive the other was clever.
+    function int divide(int x, int y)
+    function int min(int x, int y)
+    function int max(int x, int y)
+    function int sqrt(int x)
+}
+
+Division
+
+/**
+    returns the integer part of x / y
+    where x >= 0 and y >= 0
+    strategy: repetitive subtraction
+
+    O(x)
+    O(2**n)
+**/
+divide(x, y)
+    div = 0
+    rem = x
+    while rem <= x
+        rem = rem - y
+        div = div + 1
+    return div
+
+/**
+    return the integer part of x / y
+    where x >= 0 and y >= 0
+    strategy: grade-school division
+
+   O(n)
+**/
+divide(x, y):
+    if (y > x) return 0
+    q = divide(x, 2 * y)
+    if((x - 2 * q * y) < y)
+        return 2 * q
+    else
+        return 2 * q + 1
+
+Square root
+
+- its inverse function can be easily computed
+- it is monotonically increasing function
+therefore:
+- square roots can be computed using binary search
+- and the running-time of binary search is logarithmic.
+
+sqrt(x):
+    y = 0
+    for j = n / 2 - 1 ... 0 do
+        if (y + 2**j)**2 <= x then y = y + 2**j
+    return y
+
+remaining functions are trivial and will not
+be discussed
+
+Implementation notes
+
+multiplication
+issues
+- how to handle negative numbers?
+    -- If the inputs are two's complement
+       values, the algorithm work fine as-is
+- how to handle overflow?
+    -- This algorithm always returns the correct answer
+        module 2**16
+    -- digit it will give you will be the right ones
+- how to implement of (ith bit of y) quickly?
+    -- use a function to encapsulate this operation
+       function boolean bit(int x, int i)
+
+    -- The bit(x, y) can be implemented using bit shifting operations
+        which jack does not
+    -- Instead, we can use an array that holds the values 2**i, i - 0, 0... 15
+    --- a fixed array
+    --- declared as a static class variable of Math constructed by Math.init
+    --- can support the implementation of bit(x, i)
+    --- init stage build all types of data structures OS will use in its operation
+
+division
+issues
+- how to handle negative number?
+-- divide absolute values of inputs then
+    set the result's sign.
+-- four possibilities
+- how to handle overflow?
+-- the overflow can be detected when y becomes negative
+-- we can change the function's first statement to :
+    if (y > x) or (y < 0) return 0
+
+square root
+issues
+-- how to handle overflow?
+add (y + 2)**j > 0
