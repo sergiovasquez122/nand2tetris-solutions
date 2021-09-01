@@ -196,3 +196,37 @@ square root
 issues
 -- how to handle overflow?
 add (y + 2)**j > 0
+
+Memory access
+
+application programs
+- Access the RAM via abstractions
+- Access the I/O devices via abstractions
+
+How to implement these abstractions
+- The OS provides low-level services that facilitate direct RAM access
+
+
+class Memory {
+    function int peek(int address)
+
+    function void poke(int address, int value)
+}
+
+class Memory {
+    static array ram;
+
+    function void init(){
+        let ram = 0 // exactly what we wants
+        // we have complete access to the RAM
+        // let add = ram[idx], place exactly where we want
+        // accessing ram[i] = 0 + i in RAM
+
+    }
+}
+
+// this works because jack is a weakly typed language
+// doing this gives us the capacity to get into ram
+// if the programmer doesn't know what they are doing
+// they could mess up the computer.
+// such is the power of system programmers.
