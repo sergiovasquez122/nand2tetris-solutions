@@ -15,11 +15,11 @@ class Math {
     function void init() {
       var int i;
       var int current_idx;
-      bitField = Array.new(16);
-      let i = 1;
+      let bitField = Array.new(16);
+      let i = 0;
       let current_idx = 1;
       while(i < 16){
-        let bitField[i] = current_idx;
+        let bitField[0] = current_idx;
         let i = i + 1;
         let current_idx = current_idx + current_idx;
       }
@@ -50,17 +50,31 @@ class Math {
       var int i;
       var int sum;
       var int shifted_x;
+      var int ith_bit_of_y;
       let i = 0;
       let sum = 0;
       let shifted_x = x;
       while(i < 16){
-        let ith_bit_of_y = do Math.bit(y, i);
+        let ith_bit_of_y = Math.bit(y, i);
         if(ith_bit_of_y = 1){
           let sum = sum + shifted_x;
         }
         let shifted_x = shifted_x + shifted_x;
       }
       return sum;
+    }
+
+    function int divide_helper(int x, int y){
+      var int q;
+      if(y > x){
+        return 0;
+      }
+      let q = Math.divide_helper(x, y + y);
+      if((x - 2 * q * y) < y){
+        return 2 * q;
+      } else {
+        return 2 * q + 1;
+      }
     }
 
     /** Returns the integer part of x/y.
@@ -75,25 +89,17 @@ class Math {
       var int y_abs;
       let x_negative = x < 0;
       let y_negative = y < 0;
-      let x_abs = do Math.abs(x);
-      let y_abs = do Math.abs(y);
+      let x_abs = Math.abs(x);
+      let y_abs = Math.abs(y);
       if(x_negative & y_negative){
-        return do Math.divide_helper(x_abs, y_abs);
-      } 
+        return Math.divide_helper(x_abs, y_abs);
+      }
+      if((~x_negative) & (~y_negative)){
+        return Math.divide_helper(x_abs, y_abs);
+      }
+      return -Math.divide_helper(x_abs, y_abs);
     }
 
-    function int divide_helper(int x, int y){
-      var int q;
-      if(y > x){
-        return 0;
-      }
-      let q = do Math.divide(x, y + y);
-      if((x - 2 * q * y) < y){
-        return 2 * q;
-      } else {
-        return 2 * q + 1;
-      }
-    }
 
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
