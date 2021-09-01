@@ -225,8 +225,101 @@ class Memory {
     }
 }
 
+Class String{
+
+    field Array arr;
+    field int length;
+
+    constructor String new(int newLength){
+        let str = Array.new(newLength);
+        let length = 0;
+        return this;
+    }
+
+    method void dispose()
+
+    method int length()
+
+    method char charAt(int i)
+
+    method void setCharAt(int j, char c)
+
+    method String appendChar(char i)
+
+    method void eraseLastChar()
+
+    method int intValue()
+
+    method void setValue(int num)
+
+    function char newLine()
+
+    function char backSpace()
+
+    function char doubleQuote()
+
+}
+
+// length, charAt, setCharAt, appendChar, eraseLastChar can be easily done using array manipulations.
+// newline, backSpace, doubleQuote return 128, 129, 34
 // this works because jack is a weakly typed language
 // doing this gives us the capacity to get into ram
 // if the programmer doesn't know what they are doing
 // they could mess up the computer.
 // such is the power of system programmers.
+
+/** A library of basic system services */
+class Sys{
+    /* Performs all the initialization required by the OS */
+    function void init(){
+
+    }
+
+}
+
+Class Array {
+    function Array new(int size); // implemented as a function, not as a construction. uses Memory.alloc, return memory address. very trivial function to implement.
+    method void dispose(); // uses Memory.dealloc, very trivial easy function to implement
+}
+
+
+
+Hardware contract
+When the computer is reset, execution with the instruction in ROM[0]
+
+VM contract
+The following code should be placed at the top of the ROM, beginning in ROM[0];
+sp = 256
+call Sys.init
+
+Jack contract
+Program execution starts with the function Main.main()
+
+OS contract
+Sys.init should initialize the OS, and then call Main.main()
+
+class Sys {
+
+    /** Performs all the initialization required by the OS */
+    function void init(){
+        do Math.init()
+        do Memory.init()
+        do Screen.init()
+        ...
+    }
+
+    function void halt(){
+        while(true){
+
+        }
+    }
+
+    function void wait(int duration){
+        // can be implemented using a loop, machine-specific
+    }
+
+    // "ERR<errorCode>" and halts
+    function void error(int errorCode){}
+}
+
+// when you come back from the exploration you understand more then when you started
