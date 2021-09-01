@@ -1,0 +1,98 @@
+languages extensions / standard library
+
+- mathematical operations
+- abstract data types
+- input function
+- textual output
+- graphics output
+
+system oriented services
+
+- memory management
+- file system
+- I/O device drives
+- UI management
+- multi-tasking
+- networking(no man or women is an island, we expect computers to be able to communicate with other computers)
+- security
+
+Jack OS
+- consists of 8 classes
+-- Math class
+-- Memory class
+-- Screen class
+-- Output class
+-- Keyboard class
+-- String class
+-- Array class
+-- Sys class
+
+Take home lessons
+- Run-time analysis
+- Resource allocation
+- Input handling
+- Vector graphics
+- Textual outputs
+- Type conversions
+- String processing
+- ...
+
+Methodology
+- Classical algorithms
+- Ingenious hacks
+- Implementation notes
+
+Class Math {
+  function void init()
+  function int abs(int x)
+  function int multiply(int x, int y)
+  function int divide(int x, int y)
+  function int min(int x, int y)
+  function int max(int x, int y)
+  function int sqrt(int x)
+}
+
+- Efficiency matters!!!
+-- The lower the service is in the software hierarchy you want it
+    to be as efficient as possible.
+
+/**
+  returns x * y, where x, y >=0
+  strategy: repetitive addition
+
+  running time:
+  O(y), y = O(2**n), where n is the bitwidth to represent y
+  O(2**n)
+*/
+multiply(x, y):
+  sum = 0
+  for i = 0 ... y - 1 do
+      sum = sum + x
+  return sum
+
+/**
+  return x * y, where x, y >= 0
+  strategy: grade-school multiplication
+
+  running time:
+  O(n) where is the bitwidth to represent y
+*/
+multiply(x, y):
+  sum = 0
+  shifted_x = x
+  for i = 0 ... y - 1 do
+      if(bit(y, i) == 1)
+        sum = sum + shifted_x
+      shifted_x = shifted_x * 2
+  return sum
+
+- The algorithm involves only addition operations
+- Can be implemented efficiently in either software or hardware
+
+Running time
+
+Why is log_2(n) attractive?
+- because log_2(2 * n) = log_2(n) + 1
+- As the size of the input doubles, an algorithm with
+  logarithmic running-time requires 1 additional step
+
