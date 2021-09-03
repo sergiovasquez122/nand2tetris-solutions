@@ -323,3 +323,43 @@ class Sys {
 }
 
 // when you come back from the exploration you understand more then when you started
+
+// OS abstractions
+// OS abstraction: specified by the Jack OS API
+// example Screen class
+// describe the class functionality
+// application developer can use the screen functions to do the activity they would like
+// we would be content with that view if we were users
+// in nand2tetris we want to delve deeper and understand how the functionality works
+//
+// Suppose you wish to implement an existing OS
+// the OS consists of n executable modules, with high inter-dependency
+// strategy:
+// for each module in the OS, implement the module separately.
+// using the remaining n - 1 executable modules to service it.
+// after n stages you will have develop the whole operating system yourself.
+// developed own versions using reverse engineering.
+
+// Perspective:
+// What are the major differences between the Jack operating system and regular operating systems.
+// Jack OS does not support multi-threading nor does it multi-processing.
+// Jack OS also does not support file-systems.
+// Most user expect to interface with services via command line interfaces
+// additionally gaps such as security not implemented.
+// still hides lower-level details from application developer.
+// why is Jack so why opened?
+// part of the reason course. In other systems OS operations are priviledged.
+// in our platform, the user level and the OS code work in the same execution level.
+// how does the Jack OS rate in terms of effeciency
+// two areas most relevant
+// mathematics and graphics
+// algorithms for mulitplication and division are effecient.
+// in other computers the algorithms above are implemented in hardware not software.
+// the running of time multiplication and division are O(n)
+// the total running time is O(n**2).
+// O(n**2) is not bad at all.
+// the line-drawing algorithms presented are quite effecient but are typically implemented via software and GPU.
+// offload CPU from high-complex operations.
+// no separation in Hack platform.
+// Operating systems is a huge area of research and practice. especially in world
+// where computation is going bigger.
