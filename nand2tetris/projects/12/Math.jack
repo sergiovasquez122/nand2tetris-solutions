@@ -126,11 +126,11 @@ class Math {
       var int two_to_the_j;
       let y = 0;
       let j = 7;
-      while(~(j = -1)){
+      while(~(j < 0)){
         let two_to_the_j = powers_of_two[j];
         let temp = (y + two_to_the_j);
         let temp = temp * temp;
-        if(~(temp > x)){
+        if(~(temp > x) & (temp > 0)){
           let y = y + two_to_the_j;
         }
         let j = j - 1;
