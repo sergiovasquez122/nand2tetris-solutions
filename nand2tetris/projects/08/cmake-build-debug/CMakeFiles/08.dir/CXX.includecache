@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/sergi/Documents/GitHub/nand2tetris-solutions/nand2tetris/projects/08/CodeWriter.cpp
+CodeWriter.h
+C:/Users/sergi/Documents/GitHub/nand2tetris-solutions/nand2tetris/projects/08/CodeWriter.h
+
+C:/Users/sergi/Documents/GitHub/nand2tetris-solutions/nand2tetris/projects/08/CodeWriter.h
+string
+-
+fstream
+-
+unordered_map
+-
+stack
+-
+
