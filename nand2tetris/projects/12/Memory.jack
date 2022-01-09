@@ -10,10 +10,13 @@
  */
 class Memory {
 
-    static Array arr;
+    static Array arr, freeList, dummyHead;
     /** Initializes the class. */
     function void init() {
       let arr = 0;
+      let freeList[0] = null;
+      let freelist[1] = 14334;
+      let dummyHead[0] = freeList;
     }
 
     /** Returns the RAM value at the given address. */
@@ -30,7 +33,37 @@ class Memory {
     /** Finds an available RAM block of the given size and returns
      *  a reference to its base address. */
     function int alloc(int size) {
+      var prev, next, returnedSegment, allocSize;
+      let allocSize = size + 2;
+      let prev = dummyHead;
+      let next = prev[0]
+      while((~(next = null)) & (next[1] < allocSize)){
+        let prev = next;
+        let next = next[0];
+      }
+      // return a failure if we could not find a segment to support the
+      // user request
+      if(next = null){
+        do Sys.error(5);
+        return 0;
+      }
+      if(next[1] = allocSize){
+        let prev[0] = next[0];
+        let next[0] = null;
+        let returnedSegment = next;
+      } else{
+        let next[1] = next[1] - allocSize;
+        let returnedSegment = next + next[1] + 2;
+        let next[1] = next[1] - allocSize;
+        let returnedSegment[0] = null;
+        let returnedSegment[1] = size;
+      }
+      // offsets by two to hide the overhead variables
+      // 1. next pointer
+      // 2. size of the block
+      return returnedSegment + 2;
     }
+
 
     /** De-allocates the given object (cast as an array) by making
      *  it available for future allocations. */
