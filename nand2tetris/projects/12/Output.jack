@@ -18,10 +18,18 @@ class Output {
 
     // Character map for displaying characters
     static Array charMaps;
+    static Array Screen;
+    static Array charMasks;
     static int x_position, y_position;
 
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
+      let Screen = 16384;
+      let x_position = 0;
+      let y_position = 0;
+      let charMasks = Array.new(2);
+      let charMasks[0] = 255;
+      let charMasks[1] = -1 & 255;
       do Output.initMap();
       return;
     }
@@ -181,14 +189,42 @@ class Output {
     function void moveCursor(int i, int j) {
       let x_position = j;
       let y_position = i;
-
       return;
     }
 
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
-      return;
+      var Array map;
+var int address;
+var int mask;
+var int bitmap;
+var int i;
+
+let map = Output.getMap(c);
+let address = (y_position*32*11) + (x_position/2);
+let mask =  x_position & 1;
+
+let i = 0;
+while( i < 11 ) {
+    let bitmap = map[i];
+    if( mask = 1 ) {
+        let bitmap = bitmap * 256;
+    }
+    let Screen[address] = Screen[address] & charMasks[mask] | bitmap;
+    let address = address + 32;
+    let i = i + 1;
+}
+
+// Advance the cursor
+if( x_position= 63 ) {
+    do Output.println();
+}
+else {
+    let x_position = x_position + 1;
+}
+
+return;
     }
 
     /** displays the given string starting at the cursor location,
@@ -207,7 +243,7 @@ class Output {
      *  and advances the cursor appropriately. */
     function void printInt(int i) {
       var String s;
-      let s = String.new(5);
+      let s = String.new(10);
       do s.setInt(i);
       do Output.printString(s);
       do s.dispose();
@@ -216,11 +252,25 @@ class Output {
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
+      let x_position = 0;
+      if(y_position < 22){
+        let y_position = y_position + 1;
+      } else {
+        let y_position = 0;
+      }
       return;
     }
 
     /** Moves the cursor one column back. */
     function void backSpace() {
+      if(x_position = 0){
+        if(~(y_position = 0)){
+          let x_position = 63;
+          let y_position = y_position - 1;
+        }
+      } else {
+        let x_position = x_position - 1;
+      }
       return;
     }
 }
